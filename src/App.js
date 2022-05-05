@@ -14,6 +14,7 @@ export const ACTIONS = {
 function reducer(state, { type, payload }){
   // eslint-disable-next-line default-case
   switch(type){
+
     case ACTIONS.ADD_DIGIT:
     if (payload.digit === "0" && state.currentOperand === "0") {
        return state
@@ -21,10 +22,14 @@ function reducer(state, { type, payload }){
     if (payload.digit === "." && state.currentOperand.includes(".")){ 
       return state
     };
+
     return {
       ...state,
       currentOperand: `${state.currentOperand || ""}${payload.digit}`
     }
+
+    case ACTIONS.CLEAR:
+      return {}
   }
 }
 
@@ -37,7 +42,7 @@ function App() {
       <div className="previous-operand">{previousOperand} {operation}</div>
         <div className="current-operand">{currentOperand}</div>
     </div>
-    <button className="span-two">AC</button>
+    <button className="span-two" onClick={() => dispatch({ type: ACTIONS.CLEAR })}>AC</button>
     <button>DEL</button>
     <OperationButton operation="÷" dispatch={dispatch} />
     <DigitButton digit="1" dispatch={dispatch} />
