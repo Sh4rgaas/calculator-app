@@ -26,7 +26,7 @@ function reducer(state, { type, payload }){
     if (payload.digit === "0" && state.currentOperand === "0") {
        return state
       };
-    if (payload.digit === "." && state.currentOperand.includes(".")){ 
+    if (state.currentOperand === '' && payload.digit === "." && state.currentOperand.includes(".")){ 
       return state
     };
 
@@ -98,6 +98,7 @@ function reducer(state, { type, payload }){
       operation: null,
       currentOperand: evaluate(state),
     }
+
 }
 
 function evaluate({ currentOperand, previousOperand, operation }) {
@@ -129,6 +130,7 @@ function evaluate({ currentOperand, previousOperand, operation }) {
 const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
   maximumFractionDigits: 0,
 })
+
 function formatOperand(operand){
   if (operand == null) return
   const [integer, decimal] = operand.split('.')
